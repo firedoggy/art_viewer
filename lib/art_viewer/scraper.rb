@@ -15,5 +15,8 @@ class ArtViewer::Scraper
         url = "https://www.asciiart.eu#{category.ref}"
         doc = Nokogiri::HTML(open(url))
     end
-    
+
+    def self.scrape_art
+
+    end
 end
