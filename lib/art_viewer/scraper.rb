@@ -1,5 +1,6 @@
 class ArtViewer::Scraper
-    def self.scrape_categories(url = "https://www.asciiart.eu/")
+    def self.scrape_categories
+        url = "https://www.asciiart.eu#{ArtViewer.selection}"
         doc = Nokogiri::HTML(open(url))
 
         categories = doc.css(".directory-columns a")
@@ -13,13 +14,21 @@ class ArtViewer::Scraper
             ArtViewer::Category.new(name, ref, val)
         end
     end
-
+=begin
     def self.scrape_category(category)
         url = "https://www.asciiart.eu#{category.ref}"
         self.scrape_categories(url)
     end
+=end
+    def self.scrape_art(category)
+        url = "https://www.asciiart.eu#{category.ref}"
+        doc = Nokogiri::HTML(open(url))
 
-    def self.scrape_subject
+        categories = doc.css(".asciiarts pre")
 
+        categories.each do |c|
+            art = c.text
+            ArtViewer::Art.new(category, body)
+        end
     end
 end

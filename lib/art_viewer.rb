@@ -9,6 +9,15 @@ require 'open-uri'
 
 module ArtViewer
   @@layer = 1
+  @@selection = ""
+
+  def self.selection
+    @@selection
+  end
+
+  def self.setSelection(selection)
+    @@selection = selection
+  end
 
   def self.layer
     @@layer
@@ -17,7 +26,7 @@ module ArtViewer
   def self.setLayer(value)
     @@layer = value
   end
-  
+
   class Error < StandardError; end
   # Your code goes here...
 end
