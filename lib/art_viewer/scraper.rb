@@ -1,5 +1,4 @@
 class ArtViewer::Scraper
-    #@extension = "/"
 
     def self.scrape_categories
         url = "https://www.asciiart.eu#{ArtViewer.extension}"

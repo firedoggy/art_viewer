@@ -3,7 +3,6 @@ class ArtViewer::Art
     @@all = []
 
     def initialize(body)
-        #@ref = ref
         @body = body
         save
     end
