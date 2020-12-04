@@ -26,6 +26,18 @@ class ArtViewer::Category
         @@third
     end
 
+    def self.all
+        num = ArtViewer.layer
+        case num
+        when 1
+            self.first
+        when 2
+            self.second
+        when 3 
+            self.third
+        end
+    end
+
     def save
         case ArtViewer.layer
         when 1 

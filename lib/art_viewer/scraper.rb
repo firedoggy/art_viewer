@@ -1,6 +1,18 @@
 class ArtViewer::Scraper
+    attr_accessor :extension
+    @extension = ""
+
     def self.scrape_categories
-        url = "https://www.asciiart.eu#{ArtViewer.selection}"
+        case num
+        when 1
+            tag = ArtViewer::Category.all[sel].href
+        when 2
+            tag = ArtViewer::Category.all[sel].href
+        when 3
+            tag = ArtViewer::Category.all[sel].href
+        end
+
+        url = "https://www.asciiart.eu#{extension}"
         doc = Nokogiri::HTML(open(url))
 
         categories = doc.css(".directory-columns a")

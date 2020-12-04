@@ -8,23 +8,9 @@ require 'nokogiri'
 require 'open-uri'
 
 module ArtViewer
-  @@layer = 1
-  @@selection = ""
-
-  def self.selection
-    @@selection
-  end
-
-  def self.setSelection(selection)
-    @@selection = selection
-  end
-
-  def self.layer
-    @@layer
-  end
-
-  def self.setLayer(value)
-    @@layer = value
+  
+  def self.incrementLayer
+    @@layer += 1
   end
 
   class Error < StandardError; end

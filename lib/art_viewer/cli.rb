@@ -1,4 +1,7 @@
 class ArtViewer::CLI
+    attr_accessor :layer, :selection
+    @layer = 1
+    @selection = ""
 
     def call
         puts "Welcome to the ASCII Art Gallery"
@@ -16,15 +19,7 @@ class ArtViewer::CLI
     end
 
     def get_categories
-        @categories = []
-        case ArtViewer.layer
-        when 1
-            @categories = ArtViewer::Category.first
-        when 2
-            @categories = ArtViewer::Category.second
-        when 3
-            @categories = ArtViewer::Category.third
-        end
+        @categories = ArtViewer::Category.all
     end
     
     def list_categories
@@ -41,8 +36,8 @@ class ArtViewer::CLI
 
     def get_user_input
         ArtViewer.setSelection(gets.strip.to_i)
-        if @categories[ArtViewer.selection].val == '@'
-            ArtViewer.setLayer -= 1
+        if @categories[ArtViewer.selection].val == '<'
+            ArtViewer.incrementLayer
         end
     end
 =begin
