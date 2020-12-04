@@ -3,7 +3,7 @@ class ArtViewer::CLI
 
     @selection = ""
     @categories = []
-    @extension = "/"
+
 
 #    def self.layer
 #        return ArtViewer.layer
@@ -48,26 +48,15 @@ class ArtViewer::CLI
 
     def get_user_input
         @selection = gets.strip.to_i
+        ArtViewer.extension=(@categories[@selection - 1].ref)
         if @categories[@selection - 1].val == '<'
             puts "increment"
             ArtViewer.incrementLayer
         elsif @categories[@selection - 1].val == '@'
-            ArtViewer.layer=(4)
-        end
-        ArtViewer.extension=(@categories[@selection - 1].ref)
-        puts ArtViewer.extension
-    end
-=begin
-    def list_subcategories(selection)
-        category = @categories[selection - 1]
-        ArtViewer.setLayer(ArtViewer.layer + 1)
-        if category.val == '@'
-            ArtViewer::Scraper.scrape_category(category)
-        elsif category.val == '<'
-            ArtViewer::Scraper.scrape_art(category)
+            ArtViewer::Category.delete
         end
     end
-=end
+
     def display_art
 
     end
