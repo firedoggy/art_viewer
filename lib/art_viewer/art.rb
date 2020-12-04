@@ -1,8 +1,23 @@
 class ArtViewer::Art
-    attr_accessor :ref, :body
+    attr_accessor :body
+    @@all = []
 
-    def initialize(ref, body)
-        @ref = ref
+    def initialize(body)
+        #@ref = ref
         @body = body
+        save
+    end
+
+    def self.all
+        ArtViewer::Scraper.scrape_art if @@all.empty?
+        @@all
+    end
+
+    def save
+        @@all << self
+    end
+
+    def self.delete
+        @@all.clear
     end
 end

@@ -53,7 +53,9 @@ class ArtViewer::Category
     end
 
     def self.delete
-        self.all.clear
+        @@first.clear
+        @@second.clear
+        @@third.clear
     end
 end
    
