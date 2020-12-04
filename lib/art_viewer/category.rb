@@ -28,13 +28,16 @@ class ArtViewer::Category
 
     def self.all
         num = ArtViewer.layer
-        case num
+        case num.to_i
         when 1
-            self.first
+            ArtViewer::Scraper.scrape_categories if @@first.empty?
+            @@first
         when 2
-            self.second
+            ArtViewer::Scraper.scrape_categories if @@second.empty?
+            @@second
         when 3 
-            self.third
+            ArtViewer::Scraper.scrape_categories if @@third.empty?
+            @@third
         end
     end
 

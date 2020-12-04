@@ -1,16 +1,27 @@
 class ArtViewer::CLI
-    attr_accessor :layer, :selection
-    @layer = 1
+    attr_accessor  :selection, :categories, :extension
+
     @selection = ""
+    @categories = []
+    @extension = "/"
+
+#    def self.layer
+#        return ArtViewer.layer
+#    end
+
+#    def self.incrementLayer
+#        ArtViewer.layer = ArtViewer.layer.to_i + 1
+#    end
 
     def call
         puts "Welcome to the ASCII Art Gallery"
         @input = ""
         until @input == "exit"
-            while ArtViewer.layer <= 2
+            while ArtViewer.layer.to_i <= 3
                 get_categories
                 list_categories
                 get_user_input
+                #binding.pry
             end
             display_art
             continue
@@ -19,6 +30,7 @@ class ArtViewer::CLI
     end
 
     def get_categories
+        puts ArtViewer.layer
         @categories = ArtViewer::Category.all
     end
     
@@ -28,17 +40,22 @@ class ArtViewer::CLI
         else
             puts "Select a subcategory."
         end
-
-        @categories.each.with_index(1) do |category, index|
+       # puts "fun #{ArtViewer::Category.all(@extension)}"
+        (ArtViewer::Category.all).each.with_index(1) do |category, index|
             puts "#{index}. #{category.name}"
         end
     end
 
     def get_user_input
-        ArtViewer.setSelection(gets.strip.to_i)
-        if @categories[ArtViewer.selection].val == '<'
+        @selection = gets.strip.to_i
+        if @categories[@selection - 1].val == '<'
+            puts "increment"
             ArtViewer.incrementLayer
+        elsif @categories[@selection - 1].val == '@'
+            ArtViewer.layer=(4)
         end
+        ArtViewer.extension=(@categories[@selection - 1].ref)
+        puts ArtViewer.extension
     end
 =begin
     def list_subcategories(selection)
