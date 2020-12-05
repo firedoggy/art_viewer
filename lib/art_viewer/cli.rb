@@ -35,9 +35,9 @@ class ArtViewer::CLI
     
     def list_categories
         if ArtViewer.layer == 1
-            puts "\nSelect a category."
+            puts "\nSelect a category\n-----------------"
         else
-            puts "\nSelect a subcategory."
+            puts "\nSelect a subcategory\n--------------------"
         end
         (@categories).each.with_index(1) do |category, index|
             puts "#{index}. #{category.name}"
@@ -48,7 +48,7 @@ class ArtViewer::CLI
     def get_user_input
         @input = gets.strip.to_i
         until @input.between?(1, (@categories).size)
-            puts "\nPlease enter a valid input\n"
+            puts "\nPlease enter a valid input"
             @input = gets.strip.to_i
             puts "\n"
         end
@@ -56,10 +56,8 @@ class ArtViewer::CLI
         ArtViewer.extension=(@categories[@input - 1].ref)
         if @categories[@input - 1].val == '<'
             ArtViewer.incrementLayer
-        #elsif @categories[@input - 1].val == '@'
         end
             ArtViewer::Category.delete
-        #end
     end
 
     def get_art
@@ -68,13 +66,13 @@ class ArtViewer::CLI
 
     def display_art
         if (@art).size > 1
-            puts "\nSelect which piece of art you'd like to see (1 - #{(@art).size}) or select 0 to see all.\n\n"
+            puts "\nSelect which piece of art you'd like to see (1 - #{(@art).size}) or select 0 to see all.\n"
             @input = gets.strip.to_i
             puts "\n"
             until @input.between?(0, (@art).size)
-                puts "\nPlease enter a valid input\n"
+                puts "Please enter a valid input"
                 @input = gets.strip.to_i
-                #puts "\n"
+                puts "\n"
             end
         end
 
@@ -88,7 +86,7 @@ class ArtViewer::CLI
     end
     
     def continue
-        puts "Would you like to continue? Type 'exit' to exit or hit any key to restart.\n"
+        puts "\nWould you like to continue? Type 'exit' to exit or hit any key to restart.\n"
         @input = gets.strip
         ArtViewer::Category.delete
         ArtViewer::Art.delete
@@ -97,7 +95,7 @@ class ArtViewer::CLI
     end
 
     def cease
-        puts "Thank you for using."
+        puts "\nThank you for using."
     end
     
 end
