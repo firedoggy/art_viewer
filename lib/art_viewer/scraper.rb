@@ -12,7 +12,7 @@ class ArtViewer::Scraper
             ref = c.attr("href")
             val = name.to_s.slice(-1,1)
             name = name.to_s.chop
-            unless name == "Sexual"             #Prevents the program from scraping from the "Sexual" category
+            unless name == "Sexual" || name == "Band logos"           #Prevents the program from scraping from the "Sexual" category
                ArtViewer::Category.new(name, ref, val)
             end
         end

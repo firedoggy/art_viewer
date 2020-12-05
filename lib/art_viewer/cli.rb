@@ -6,7 +6,15 @@ class ArtViewer::CLI
 
 
     def call
-        puts "Welcome to the ASCII Art Gallery\n"
+        #puts "Welcome to the ASCII Art Gallery\n"
+        puts "\n\n        __          __  _                            _          _   _                      _____  _____ _____ _____                 _      _____       _ _                 
+        \\ \\        / / | |                          | |        | | | |              /\\    / ____|/ ____|_   _|_   _|     /\\        | |    / ____|     | | |                
+         \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___     /  \\  | (___ | |      | |   | |      /  \\   _ __| |_  | |  __  __ _| | | ___ _ __ _   _ 
+          \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\  | __| '_ \\ / _ \\   / /\\ \\  \\___ \\| |      | |   | |     / /\\ \\ | '__| __| | | |_ |/ _` | | |/ _ \\ '__| | | |
+           \\  /\\  /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/  / ____ \\ ____) | |____ _| |_ _| |_   / ____ \\| |  | |_  | |__| | (_| | | |  __/ |  | |_| |
+            \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/   \\__|_| |_|\\___| /_/    \\_\\_____/ \\_____|_____|_____| /_/    \\_\\_|   \\__|  \\_____|\\__,_|_|_|\\___|_|   \\__, |
+                                                                                                                                                                      __/ |
+                                                                                                                                                                     |___/ \n\n"
         @input = ""
         until @input == "exit"
             while ArtViewer.layer.to_i < 3
@@ -27,62 +35,60 @@ class ArtViewer::CLI
     
     def list_categories
         if ArtViewer.layer == 1
-            puts "Select a category."
+            puts "\nSelect a category."
         else
-            puts "Select a subcategory."
+            puts "\nSelect a subcategory."
         end
-        (ArtViewer::Category.all).each.with_index(1) do |category, index|
+        (@categories).each.with_index(1) do |category, index|
             puts "#{index}. #{category.name}"
         end
         puts "\n"
     end
 
     def get_user_input
-        status = false
-        while status == false
+        @input = gets.strip.to_i
+        until @input.between?(1, (@categories).size)
+            puts "\nPlease enter a valid input\n"
             @input = gets.strip.to_i
             puts "\n"
-            status = @input.between?(1, (ArtViewer::Category.all).size)
-            unless status
-                puts "Invalid selection."
-            end
         end
-
+        
         ArtViewer.extension=(@categories[@input - 1].ref)
         if @categories[@input - 1].val == '<'
             ArtViewer.incrementLayer
-        elsif @categories[@input - 1].val == '@'
-            ArtViewer::Category.delete
+        #elsif @categories[@input - 1].val == '@'
         end
+            ArtViewer::Category.delete
+        #end
     end
 
     def get_art
-        ArtViewer::Art.all
+        @art = ArtViewer::Art.all
     end
 
     def display_art
-        if (ArtViewer::Art.all).size > 1
-            status = false
-            while status == false
-                puts "Select which piece of art you'd like to see (1 - #{(ArtViewer::Art.all).size}) or select 0 to see all.\n"
+        if (@art).size > 1
+            puts "\nSelect which piece of art you'd like to see (1 - #{(@art).size}) or select 0 to see all.\n\n"
+            @input = gets.strip.to_i
+            puts "\n"
+            until @input.between?(0, (@art).size)
+                puts "\nPlease enter a valid input\n"
                 @input = gets.strip.to_i
-                puts "\n"
-                status = @input.between?(0, (ArtViewer::Art.all).size)
+                #puts "\n"
             end
         end
 
-        if @input == 0 || (ArtViewer::Art.all).size == 1
-            (ArtViewer::Art.all).each.with_index(1) do |art, index|
-                puts "#{index}. #{art.body}\n\n"
+        if @input == 0 || (@art).size == 1
+            (@art).each.with_index(1) do |art, index|
+                puts "\n#{index}.\n#{art.body}\n"
             end
         else
-            puts "#{@input}. #{(ArtViewer::Art.all[@input - 1]).body}\n\n"
+            puts "\n#{@input}.\n#{(@art[@input - 1]).body}\n"
         end
     end
     
-
     def continue
-        puts "Would you like to continue? Type 'exit' to exit or hit any key to restart"
+        puts "Would you like to continue? Type 'exit' to exit or hit any key to restart.\n"
         @input = gets.strip
         ArtViewer::Category.delete
         ArtViewer::Art.delete
