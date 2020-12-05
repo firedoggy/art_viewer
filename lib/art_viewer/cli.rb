@@ -1,6 +1,6 @@
 class ArtViewer::CLI
-    attr_accessor  :selection, :categories, :art
-    @selection = ""
+    attr_accessor  :input, :categories, :art  
+    @input = ""
     @categories = []
     @art = []
 
@@ -38,12 +38,20 @@ class ArtViewer::CLI
     end
 
     def get_user_input
-        @selection = gets.strip.to_i
-        puts "\n"
-        ArtViewer.extension=(@categories[@selection - 1].ref)
-        if @categories[@selection - 1].val == '<'
+        status = false
+        while status == false
+            @input = gets.strip.to_i
+            puts "\n"
+            status = @input.between?(1, (ArtViewer::Category.all).size)
+            unless status
+                puts "Invalid selection."
+            end
+        end
+
+        ArtViewer.extension=(@categories[@input - 1].ref)
+        if @categories[@input - 1].val == '<'
             ArtViewer.incrementLayer
-        elsif @categories[@selection - 1].val == '@'
+        elsif @categories[@input - 1].val == '@'
             ArtViewer::Category.delete
         end
     end
@@ -53,8 +61,22 @@ class ArtViewer::CLI
     end
 
     def display_art
-        (ArtViewer::Art.all).each do |art|
-            puts "#{art.body}\n\n"
+        if (ArtViewer::Art.all).size > 1
+            status = false
+            while status == false
+                puts "Select which piece of art you'd like to see (1 - #{(ArtViewer::Art.all).size}) or select 0 to see all.\n"
+                @input = gets.strip.to_i
+                puts "\n"
+                status = @input.between?(0, (ArtViewer::Art.all).size)
+            end
+        end
+
+        if @input == 0 || (ArtViewer::Art.all).size == 1
+            (ArtViewer::Art.all).each.with_index(1) do |art, index|
+                puts "#{index}. #{art.body}\n\n"
+            end
+        else
+            puts "#{@input}. #{(ArtViewer::Art.all[@input - 1]).body}\n\n"
         end
     end
 
