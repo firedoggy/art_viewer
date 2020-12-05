@@ -79,6 +79,7 @@ class ArtViewer::CLI
             puts "#{@input}. #{(ArtViewer::Art.all[@input - 1]).body}\n\n"
         end
     end
+    
 
     def continue
         puts "Would you like to continue? Type 'exit' to exit or hit any key to restart"
