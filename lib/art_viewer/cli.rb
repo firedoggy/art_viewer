@@ -6,7 +6,6 @@ class ArtViewer::CLI
 
 
     def call
-        #puts "Welcome to the ASCII Art Gallery\n"
         puts "\n\n        __          __  _                            _          _   _                      _____  _____ _____ _____                 _      _____       _ _                 
         \\ \\        / / | |                          | |        | | | |              /\\    / ____|/ ____|_   _|_   _|     /\\        | |    / ____|     | | |                
          \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___     /  \\  | (___ | |      | |   | |      /  \\   _ __| |_  | |  __  __ _| | | ___ _ __ _   _ 
@@ -15,7 +14,7 @@ class ArtViewer::CLI
             \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/   \\__|_| |_|\\___| /_/    \\_\\_____/ \\_____|_____|_____| /_/    \\_\\_|   \\__|  \\_____|\\__,_|_|_|\\___|_|   \\__, |
                                                                                                                                                                       __/ |
                                                                                                                                                                      |___/ \n\n"
-        @input = ""
+
         until @input == "exit"
             while ArtViewer.layer.to_i < 3
                 get_categories
@@ -39,6 +38,7 @@ class ArtViewer::CLI
         else
             puts "\nSelect a subcategory\n--------------------"
         end
+
         (@categories).each.with_index(1) do |category, index|
             puts "#{index}. #{category.name}"
         end
@@ -48,12 +48,12 @@ class ArtViewer::CLI
     def get_user_input
         @input = gets.strip.to_i
         until @input.between?(1, (@categories).size)
-            puts "\nPlease enter a valid input"
+            puts "\nPlease enter a valid input\n"
             @input = gets.strip.to_i
             puts "\n"
         end
         
-        ArtViewer.extension=(@categories[@input - 1].ref)
+        ArtViewer.extension=(@categories[@input - 1].ext)
         if @categories[@input - 1].val == '<'
             ArtViewer.incrementLayer
         end

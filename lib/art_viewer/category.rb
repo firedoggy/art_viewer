@@ -1,10 +1,10 @@
 class ArtViewer::Category
-    attr_accessor :name, :ref, :val
+    attr_accessor :name, :ext, :val
     @@all = []
      
-    def initialize(name, ref, val)
+    def initialize(name, ext, val)
       @name = name
-      @ref = ref
+      @ext = ext
       @val = val
       save
     end 

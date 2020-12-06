@@ -4,12 +4,13 @@ require_relative './art_viewer/scraper'
 require_relative './art_viewer/category'
 require_relative './art_viewer/art'
 
+require 'rubygems'
 require 'pry'
 require 'nokogiri'
 require 'open-uri'
+require 'htmlentities'
 
 module ArtViewer
-  @@selection = ""
   @@extension = "/"
   @@layer = 1
 

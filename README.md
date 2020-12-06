@@ -1,8 +1,6 @@
 # ArtViewer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/art_viewer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to ArtViewer. Here you are able to navigate through the categories and then view the ASCII art from https://www.asciiart.eu/.
 
 ## Installation
 
@@ -22,7 +20,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Type the below and follow the on screen prompts.
+
+    $ ./bin/art_viewer.rb
 
 ## Development
 

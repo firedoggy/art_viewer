@@ -4,10 +4,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake", "~> 12.0"
-gem "tty-prompt"
-gem "tty-color"
 gem "pry"
 gem "nokogiri"
-gem "pastel"
 gem "open-uri"
-
+gem 'htmlentities'
