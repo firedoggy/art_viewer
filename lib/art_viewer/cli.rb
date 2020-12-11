@@ -55,9 +55,8 @@ class ArtViewer::CLI
         end
 
         until @input.between?(1, (@categories).size)    
-            puts "\nPlease enter a valid input\n"
+            puts "\nPlease enter a valid input"
             @input = gets.chomp.to_i
-            puts "\n"
         end
         
         ArtViewer.extension=(@categories[@input - 1].ext)
