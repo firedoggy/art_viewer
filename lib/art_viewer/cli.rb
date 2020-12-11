@@ -46,10 +46,17 @@ class ArtViewer::CLI
     end
 
     def get_user_input
-        @input = gets.strip.to_i
-        until @input.between?(1, (@categories).size)
+        begin
+            @input = gets.chomp
+            @input = Integer(@input)
+            rescue ArgumentError
+                puts "\nPlease enter a valid input\n"
+                retry
+        end
+
+        until @input.between?(1, (@categories).size)    
             puts "\nPlease enter a valid input\n"
-            @input = gets.strip.to_i
+            @input = gets.chomp.to_i
             puts "\n"
         end
         
@@ -57,7 +64,7 @@ class ArtViewer::CLI
         if @categories[@input - 1].val == '<'
             ArtViewer.incrementLayer
         end
-            ArtViewer::Category.delete
+        ArtViewer::Category.delete
     end
 
     def get_art
@@ -67,11 +74,18 @@ class ArtViewer::CLI
     def display_art
         if (@art).size > 1
             puts "\nSelect which piece of art you'd like to see (1 - #{(@art).size}) or select 0 to see all.\n"
-            @input = gets.strip.to_i
+            begin
+                @input = gets.chomp
+                @input = Integer(@input)
+                rescue ArgumentError
+                    puts "\nPlease enter a valid input\n"
+                    retry
+            end
+            
             puts "\n"
             until @input.between?(0, (@art).size)
                 puts "Please enter a valid input"
-                @input = gets.strip.to_i
+                @input = gets.chomp.to_i
                 puts "\n"
             end
         end
